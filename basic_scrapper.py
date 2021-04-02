@@ -34,15 +34,17 @@ def browser_options_setup():
     return options, user_agent, headers
 
 def spawn_browser(options, user_agent, headers):
+    #change here according to your driver path
     browser = webdriver.Chrome('C:\\Users\mandah-acer\Downloads\EXE\chromedriver.exe', options=options)
     browser.header = headers
     browser.header['User-Agent'] = user_agent
     return browser
-
+    
 def save_request_details(result):
     df = pd.DataFrame(result)
-    #df.to_excel("C:\Users\mandah-acer\Documents\webcrawler\crawling_result.xlsx")
-    df.to_csv("C:\Users\mandah-acer\Documents\webcrawler\crawling_result.csv")
+    #change here according to file path
+    #df.to_excel("C:\\Users\\mandah-acer\\Documents\\webcrawler\\crawling_result.xlsx")
+    df.to_csv("C:\\Users\\mandah-acer\\Documents\\webcrawler\\crawling_result.csv")
 
 def get_requests_details(browser, result):
     count = 0
@@ -58,14 +60,14 @@ def get_requests_details(browser, result):
             count += 1
             result.append({"url": browser.current_url, "webpage_title": browser.title, "request_url": request_url, "request_date": request_date, "request_language": request_language, "request_user_agent": request_user_agent, "response_date": response_date, "response_status": response_status, "response_content_type": response_content_type})
             save_request_details(result)
-            # print(request_url, request_date, request_language, request_user_agent, response_date, response_status, response_content_type)
+            print(request_url, request_date, request_language, request_user_agent, response_date, response_status, response_content_type)
         if count == 10: break # to limit only to get 10 earliest requests, comment to disable
 
 result = []
 start = time.time()
 options, user_agent, headers = browser_options_setup()
 browser = spawn_browser(options, user_agent, headers)
-
+#change here according to your url list name
 url_file = open("url_list.txt", "r")
 url_list = url_file.read().replace("\n",",").split(",")
 url_list = [url for url in url_list if url != ""]
