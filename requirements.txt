@@ -1,0 +1,4 @@
+beautifulsoup4==4.9.1
+random-user-agent==1.0.1
+selenium==3.141.0
+selenium-wire==4.2.2
